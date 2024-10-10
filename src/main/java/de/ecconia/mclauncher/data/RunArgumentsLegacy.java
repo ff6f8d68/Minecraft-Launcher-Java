@@ -21,7 +21,7 @@ public class RunArgumentsLegacy implements RunArguments
 	}
 	
 	@Override
-	public Collection<String> build(LoadedVersion version, String classpath, String nativesDirectory, LoginProfile profile)
+	public Collection<String> build(LoadedVersion version, String classpath, String nativesDirectory)
 	{
 		List<String> finalArguments = new ArrayList<>();
 		finalArguments.add("-Djava.library.path=" + nativesDirectory);
@@ -41,11 +41,7 @@ public class RunArgumentsLegacy implements RunArguments
 			{
 				String found = m.group(1);
 				String replacement;
-				if("auth_player_name".equals(found))
-				{
-					replacement = profile.getUsername();
-				}
-				else if("version_name".equals(found))
+				if("version_name".equals(found))
 				{
 					replacement = version.getId();
 				}
@@ -60,18 +56,6 @@ public class RunArgumentsLegacy implements RunArguments
 				else if("assets_index_name".equals(found))
 				{
 					replacement = version.getAssetsInfo().getId();
-				}
-				else if("auth_uuid".equals(found))
-				{
-					replacement = profile.getUuid();
-				}
-				else if("auth_access_token".equals(found))
-				{
-					replacement = profile.getAccessToken();
-				}
-				else if("user_type".equals(found))
-				{
-					replacement = "legacy";
 				}
 				else if("version_type".equals(found))
 				{

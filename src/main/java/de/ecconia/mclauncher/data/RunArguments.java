@@ -6,5 +6,5 @@ import java.util.Collection;
 
 public interface RunArguments
 {
-	Collection<String> build(LoadedVersion version, String classpath, String absolutePath, LoginProfile profile);
+	Collection<String> build(LoadedVersion version, String classpath, String absolutePath);
 }

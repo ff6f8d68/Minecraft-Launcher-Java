@@ -58,22 +58,6 @@ public class MCLauncher
 		{
 			throw new IllegalStateException("Please run \"setCurrentVersion\" first.");
 		}
-		
-		try
-		{
-			LoginProfile profile = SimpleProfileStorage.loadProfile(username);
-			if(profile == null)
-			{
-				System.err.println("Something went wrong querying the login data from the Mojang server.");
-				System.exit(1);
-			}
-			MCLauncherLab.run(currentVersion, profile);
-		}
-		catch(IOException e)
-		{
-			System.err.println("Could not load profile file, aborting to prevent more errors.");
-			e.printStackTrace();
-			System.exit(1);
-		}
+		MCLauncherLab.run(currentVersion);
 	}
 }

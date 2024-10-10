@@ -7,6 +7,7 @@ import de.ecconia.mclauncher.LoginProfile;
 import de.ecconia.mclauncher.data.rules.Rules;
 import de.ecconia.mclauncher.newdata.LoadedVersion;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,8 +57,7 @@ public class RunArgumentsNew implements RunArguments
 	{
 		argumentsGame.add(new StaticArgument(argumentsString));
 	}
-	
-	@Override
+
 	public List<String> build(LoadedVersion version, String classpath, String nativesDirectory, LoginProfile profile)
 	{
 		Pattern pat = Pattern.compile("\\$\\{([a-z_]+)\\}");
@@ -119,11 +119,7 @@ public class RunArgumentsNew implements RunArguments
 			{
 				String found = m.group(1);
 				String replacement;
-				if("auth_player_name".equals(found))
-				{
-					replacement = profile.getUsername();
-				}
-				else if("version_name".equals(found))
+				if("version_name".equals(found))
 				{
 					replacement = version.getId();
 				}
@@ -138,18 +134,6 @@ public class RunArgumentsNew implements RunArguments
 				else if("assets_index_name".equals(found))
 				{
 					replacement = version.getAssetsInfo().getId();
-				}
-				else if("auth_uuid".equals(found))
-				{
-					replacement = profile.getUuid();
-				}
-				else if("auth_access_token".equals(found))
-				{
-					replacement = profile.getAccessToken();
-				}
-				else if("user_type".equals(found))
-				{
-					replacement = "legacy";
 				}
 				else if("version_type".equals(found))
 				{
@@ -176,7 +160,12 @@ public class RunArgumentsNew implements RunArguments
 	{
 		return argumentsJVM.isEmpty() && argumentsGame.isEmpty();
 	}
-	
+
+	@Override
+	public Collection<String> build(LoadedVersion version, String classpath, String absolutePath) {
+		return List.of();
+	}
+
 	private abstract static class Argument
 	{
 		public abstract void apply(List<String> arguments);

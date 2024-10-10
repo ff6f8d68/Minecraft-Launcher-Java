@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MCLauncherLab
 {
-	public static void run(LoadedVersion version, LoginProfile profile)
+	public static void run(LoadedVersion version)
 	{
 		Locations.gameFolder.mkdirs();
 		Locations.runFolder.mkdirs();
@@ -40,7 +40,10 @@ public class MCLauncherLab
 		//arguments.add("-XX:+CMSIncrementalMode");
 		//arguments.add("-XX:-UseAdaptiveSizePolicy");
 		//arguments.add("-Xmn128M");
-		arguments.addAll(version.getArguments().build(version, classpath, nativesFolder.getAbsolutePath(), profile));
+
+
+
+		arguments.addAll(version.getArguments().build(version, classpath, nativesFolder.getAbsolutePath()));
 		
 		for(int i = 0; i < arguments.size(); i++)
 		{
